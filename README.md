@@ -14,13 +14,13 @@ POST requests were originally removed in v5.2.7, references:
 
 Tested on Mac M3 Max (128GB).
 
-| Points | API Request Time (seconds) |
-|-------------------------|----------------------------|
-| 1,000                  | 1.4330                     |
-| 10,000                 | 85.7855                    |
-| 25,000                 | 500.8667                   |
-| 35,000                 | 997.2531                   |
-| 40,000                 | Error: "TooBig", "Too many table coordinates" |
+| Points | API Request Time (seconds) | JSON Size |
+|-------------------------|----------------------------|-------------------------|
+| 1,000                  | 1.4330                     ||
+| 10,000                 | 85.7855                    ||
+| 25,000                 | 500.8667                   ||
+| 35,000                 | 997.2531                   | 15.7Gb|
+| 40,000                 | Error: "TooBig", "Too many table coordinates" ||
 
 We can fit a curve quite nicely: 
 
