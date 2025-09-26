@@ -26,6 +26,29 @@ We can fit a curve quite nicely:
 
 <img width="1627" height="1101" alt="image" src="https://github.com/user-attachments/assets/3904dfa7-3909-4abd-893a-1849a9b34913" />
 
+## Setup example with Monaco:
+
+1. Firstly download the pbf file for Monaco (or the file you want): https://download.geofabrik.de/europe.html
+2. ```sh
+    cd /path/to/project
+    mkdir -p build
+    cd build
+    cmake .. -DCMAKE_BUILD_TYPE=Release
+    make -j4
+    ```
+3. Now we need to build extract the date for osrm with `./osrm-extract`, `osrm-partition` and `osrm-customize`:
+```sh
+./osrm-extract ..path/to/malta/malta-250924.osm.pbf -p ../profiles/car.lua
+
+./osrm-partition ..path/to/malta/malta-250924.osrm
+
+./osrm-customize ..path/to/malta/malta-250924.osrm
+```
+
+4. Now simply run with: (tip: check --help or read "How to test")
+```sh
+./osrm-routed ../path/to/malta/malta-250924.osrm
+```
 ## How to test 
 
 1. Install uv with `curl -LsSf https://astral.sh/uv/install.sh | sh` (from https://docs.astral.sh/uv/)
