@@ -1,6 +1,11 @@
-Forked on 26/09/2025 as we required POST requests for very large table requests up to 35k. We only modified a few files to simply concatenate the POST body with the URL to avoid issues with URL length when using reverse proxies such as nginx.
+Forked v6 on 26/09/2025 as we required POST requests for very large table requests up to 35k. 
+We modified as few files as possible to concatenate the POST body with the URL to avoid issues with URL length when using reverse proxies such as nginx:
+- [include/server/http/request.hpp](https://github.com/gbconsite/osrm-backend/blob/master/include/server/http/request.hpp)
+- [include/server/request_parser.hpp](https://github.com/gbconsite/osrm-backend/blob/master/include/server/request_parser.hpp)
+- [src/server/request_handler.cpp](https://github.com/gbconsite/osrm-backend/blob/master/src/server/request_handler.cpp)
+- [src/server/request_parser.cpp](https://github.com/gbconsite/osrm-backend/blob/master/src/server/request_parser.cpp)
 
-POST requests were removed in v5.2.7, references: 
+POST requests were originally removed in v5.2.7, references: 
 - https://github.com/Project-OSRM/osrm-backend/issues/6829
 - https://github.com/Project-OSRM/osrm-backend/issues/4211
 - https://github.com/Project-OSRM/osrm-backend/issues/2163
@@ -24,7 +29,7 @@ We can fit a curve quite nicely:
 ## How to test 
 
 1. Install uv with `curl -LsSf https://astral.sh/uv/install.sh | sh` (from https://docs.astral.sh/uv/)
-2. Download monaca.pbf, follow contraction step, compile
+2. Download monaco.pbf from Geofabrik, follow contraction step, compile
 3. Run this OSRM fork with
 
 ```
