@@ -5,6 +5,45 @@ POST requests were removed in v5.2.7, references:
 - https://github.com/Project-OSRM/osrm-backend/issues/4211
 - https://github.com/Project-OSRM/osrm-backend/issues/2163
 
+## Benchmarks for monaco.pbf
+
+Tested on Mac M3 Max (128GB).
+
+| Points | API Request Time (seconds) |
+|-------------------------|----------------------------|
+| 1,000                  | 1.4330                     |
+| 10,000                 | 85.7855                    |
+| 25,000                 | 500.8667                   |
+| 35,000                 | 997.2531                   |
+| 40,000                 | Error: "TooBig", "Too many table coordinates" |
+
+We can fit a curve quite nicely: 
+
+<img width="1627" height="1101" alt="image" src="https://github.com/user-attachments/assets/3904dfa7-3909-4abd-893a-1849a9b34913" />
+
+## How to test 
+
+1. Install uv with `curl -LsSf https://astral.sh/uv/install.sh | sh` (from https://docs.astral.sh/uv/)
+2. Download monaca.pbf, follow contraction step, compile
+3. Run this OSRM fork with
+
+```
+(base) ➜  build git:(master) ✗ ./osrm-routed --verbosity DEBUG ../pbf_profiles/malta/malta-250924.osrm --algorithm MLD --port 5002 --max-table-size 100000   --max-viaroute-size 1000000 \
+  --max-trip-size     100000 \
+  --max-matching-size 100000 \
+  --max-nearest-size  100000
+
+[2025-09-26T07:25:42.443646] [info] starting up engines, v6.0.0
+[2025-09-26T07:25:42.444191] [info] Threads: 16
+[2025-09-26T07:25:42.444198] [info] IP address: 0.0.0.0
+[2025-09-26T07:25:42.444202] [info] IP port: 5002
+[2025-09-26T07:25:42.444206] [info] Keepalive timeout: 5
+[2025-09-26T07:25:42.454028] [info] http 1.1 compression handled by zlib version 1.2.12
+[2025-09-26T07:25:42.454344] [info] Listening on: 0.0.0.0:5002
+[2025-09-26T07:25:42.454387] [info] running and waiting for requests
+```
+3. Run a test for 35k random points in Monaco with `uv run monaco.py -n 35000`
+---
 
 ## Open Source Routing Machine
 
